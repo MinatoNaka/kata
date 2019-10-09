@@ -2,8 +2,6 @@ package kata.ex01;
 
 import kata.ex01.model.HighwayDrive;
 import kata.ex01.rule.DiscountRule;
-import kata.ex01.rule.HolidayDiscountImpl;
-import kata.ex01.rule.WeekdayDiscountImpl;
 
 import java.util.List;
 
@@ -19,10 +17,8 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public long calc(HighwayDrive drive) {
-/*
-*/
         int discountRate = 0;
-        for(DiscountRule rule : this.rules) {
+        for (DiscountRule rule : this.rules) {
             int newDiscountRate = rule.getDiscountRate(drive);
             discountRate = Math.max(discountRate, newDiscountRate);
         }
