@@ -8,13 +8,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class WeekdayDiscountImpl implements DiscountRule {
+public class WeekdayMorningEveningDiscountImpl implements DiscountRule {
     @Override
     public int getDiscountRate(HighwayDrive drive) {
-        if (
-                (this.isWeekdayMorning(drive.getEnteredAt(), drive.getExitedAt()) || this.isWeekdayEvening(drive.getEnteredAt(), drive.getExitedAt()))
-                        && drive.getRouteType() == RouteType.RURAL
-        ) {
+        if ((this.isWeekdayMorning(drive.getEnteredAt(), drive.getExitedAt()) || this.isWeekdayEvening(drive.getEnteredAt(), drive.getExitedAt()))
+                && drive.getRouteType() == RouteType.RURAL) {
             if (drive.getDriver().getCountPerMonth() >= 5 && drive.getDriver().getCountPerMonth() <= 9) {
                 return 30;
             }
@@ -32,7 +30,7 @@ public class WeekdayDiscountImpl implements DiscountRule {
     }
 
     private boolean isWeekdayMorning(LocalDateTime enteredAt, LocalDateTime exitedAt) {
-        //todo ルールの時間範囲が日をまたぐ場合は考慮できてない
+        //WARNING: ルールの時間範囲が日をまたぐ場合は考慮できてない
         LocalTime startTime = LocalTime.of(6, 0);
         LocalTime endTime = LocalTime.of(9, 0);
 
@@ -41,7 +39,7 @@ public class WeekdayDiscountImpl implements DiscountRule {
 
         if (enteredTime.isBefore(exitedTime)) {
             // 日をまたがないドライブ
-            return (this.isWeekday(enteredAt.toLocalDate()) && (enteredTime.equals(endTime) || enteredTime.isBefore(endTime))) //todo 「<=」を書きたいだけ
+            return (this.isWeekday(enteredAt.toLocalDate()) && (enteredTime.equals(endTime) || enteredTime.isBefore(endTime)))
                     && (this.isWeekday(exitedAt.toLocalDate()) && (exitedTime.equals(startTime) || exitedTime.isAfter(startTime)));
         }
 
@@ -51,7 +49,7 @@ public class WeekdayDiscountImpl implements DiscountRule {
     }
 
     private boolean isWeekdayEvening(LocalDateTime enteredAt, LocalDateTime exitedAt) {
-        //todo ルールの時間範囲が日をまたぐ場合は考慮できてない
+        //WARNING: ルールの時間範囲が日をまたぐ場合は考慮できてない
         LocalTime startTime = LocalTime.of(17, 0);
         LocalTime endTime = LocalTime.of(20, 0);
 
@@ -60,7 +58,7 @@ public class WeekdayDiscountImpl implements DiscountRule {
 
         if (enteredTime.isBefore(exitedTime)) {
             // 日をまたがないドライブ
-            return (this.isWeekday(enteredAt.toLocalDate()) && (enteredTime.equals(endTime) || enteredTime.isBefore(endTime))) //todo 「<=」を書きたいだけ
+            return (this.isWeekday(enteredAt.toLocalDate()) && (enteredTime.equals(endTime) || enteredTime.isBefore(endTime)))
                     && (this.isWeekday(exitedAt.toLocalDate()) && (exitedTime.equals(startTime) || exitedTime.isAfter(startTime)));
         }
 
@@ -68,5 +66,4 @@ public class WeekdayDiscountImpl implements DiscountRule {
         return (this.isWeekday(enteredAt.toLocalDate()) && (enteredTime.equals(endTime) || enteredTime.isBefore(endTime)))
                 || (this.isWeekday(exitedAt.toLocalDate()) && (exitedTime.equals(startTime) || exitedTime.isAfter(startTime)));
     }
-
 }

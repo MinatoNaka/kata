@@ -5,7 +5,7 @@ import kata.ex01.model.HighwayDrive;
 import kata.ex01.rule.DiscountRule;
 import kata.ex01.rule.HolidayDiscountImpl;
 import kata.ex01.rule.MidnightDiscountImpl;
-import kata.ex01.rule.WeekdayDiscountImpl;
+import kata.ex01.rule.WeekdayMorningEveningDiscountImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ public class DiscountServiceTest {
     @BeforeEach
     void setUp() {
         List<DiscountRule> discountRules = new ArrayList<DiscountRule>();
-        discountRules.add(new WeekdayDiscountImpl());
+        discountRules.add(new WeekdayMorningEveningDiscountImpl());
         discountRules.add(new HolidayDiscountImpl());
         discountRules.add(new MidnightDiscountImpl());
         discountService = new DiscountServiceImpl(discountRules);
@@ -125,10 +125,22 @@ public class DiscountServiceTest {
     }
 
     @Test
-    public void test平日と休日をまたいで休日割のみ適用() {
+    public void test平日から休日をまたいで休日割のみ適用() {
         HighwayDrive drive = new HighwayDrive();
         drive.setEnteredAt(LocalDateTime.of(2016, 4, 1, 21, 0));
         drive.setExitedAt(LocalDateTime.of(2016, 4, 2, 7, 0));
+        drive.setDriver(driver(10));
+        drive.setVehicleFamily(STANDARD);
+        drive.setRouteType(RURAL);
+
+        assertThat(discountService.calc(drive)).isEqualTo(30);
+    }
+
+    @Test
+    public void test休日から平日をまたいで休日割のみ適用() {
+        HighwayDrive drive = new HighwayDrive();
+        drive.setEnteredAt(LocalDateTime.of(2016, 4, 3, 17, 0));
+        drive.setExitedAt(LocalDateTime.of(2016, 4, 4, 4, 0));
         drive.setDriver(driver(10));
         drive.setVehicleFamily(STANDARD);
         drive.setRouteType(RURAL);

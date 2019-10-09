@@ -15,7 +15,7 @@ public class MidnightDiscountImpl implements DiscountRule {
     }
 
     private boolean isMidnight(LocalDateTime enteredAt, LocalDateTime exitedAt) {
-        //todo ルールの時間範囲が日をまたぐ場合は考慮できてない
+        //WARNING: ルールの時間範囲が日をまたぐ場合は考慮できてない
         LocalTime startTime = LocalTime.of(0, 0);
         LocalTime endTime = LocalTime.of(4, 0);
 
@@ -24,7 +24,7 @@ public class MidnightDiscountImpl implements DiscountRule {
 
         if (enteredTime.isBefore(exitedTime)) {
             // 日をまたがないドライブ
-            return (enteredTime.equals(endTime) || enteredTime.isBefore(endTime)) //todo 「<=」を書きたいだけ
+            return (enteredTime.equals(endTime) || enteredTime.isBefore(endTime))
                     && (exitedTime.equals(startTime) || exitedTime.isAfter(startTime));
         }
 
