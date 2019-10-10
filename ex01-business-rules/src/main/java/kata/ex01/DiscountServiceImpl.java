@@ -1,7 +1,7 @@
 package kata.ex01;
 
 import kata.ex01.model.HighwayDrive;
-import kata.ex01.rule.DiscountRule;
+import kata.ex01.domain.DiscountRule;
 
 import java.util.List;
 

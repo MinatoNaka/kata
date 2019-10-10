@@ -2,10 +2,10 @@ package kata.ex01;
 
 import kata.ex01.model.Driver;
 import kata.ex01.model.HighwayDrive;
-import kata.ex01.rule.DiscountRule;
-import kata.ex01.rule.HolidayDiscountImpl;
-import kata.ex01.rule.MidnightDiscountImpl;
-import kata.ex01.rule.WeekdayMorningEveningDiscountImpl;
+import kata.ex01.domain.DiscountRule;
+import kata.ex01.domain.HolidayDiscountImpl;
+import kata.ex01.domain.MidnightDiscountImpl;
+import kata.ex01.domain.WeekdayMorningEveningDiscountImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
