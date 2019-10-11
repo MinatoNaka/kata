@@ -54,13 +54,13 @@ public class RuleBuilder {
         if (enteredTime.isBefore(exitedTime)) {
             return build(
                     (enteredTime.equals(endTime) || enteredTime.isBefore(endTime))
-                            || (exitedTime.equals(startTime) || exitedTime.isAfter(startTime))
+                            && (exitedTime.equals(startTime) || exitedTime.isAfter(startTime))
             );
         }
         //日をまたぐドライブ
         return build(
                 (enteredTime.equals(endTime) || enteredTime.isBefore(endTime))
-                        && (exitedTime.equals(startTime) || exitedTime.isAfter(startTime))
+                        || (exitedTime.equals(startTime) || exitedTime.isAfter(startTime))
         );
     }
 

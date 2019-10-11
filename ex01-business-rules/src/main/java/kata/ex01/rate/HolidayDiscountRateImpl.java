@@ -9,7 +9,7 @@ import java.util.EnumSet;
 import static kata.ex01.model.VehicleFamily.*;
 
 public class HolidayDiscountRateImpl implements DiscountRate {
-    /** 割引ルール **/
+    /** ETC割引ルール **/
     private DiscountRule discountRule;
     /** 割引適用あり **/
     private final int DISCOUNT_RATE = 30;
@@ -18,15 +18,10 @@ public class HolidayDiscountRateImpl implements DiscountRate {
     /** 割引対象の車種 **/
     private EnumSet<VehicleFamily> vehicleFamilies = EnumSet.of(STANDARD, MINI, MOTORCYCLE);
 
-    public HolidayDiscountRateImpl(DiscountRule discountRule)
-    {
-        this.discountRule = discountRule;
-    }
+    public HolidayDiscountRateImpl() { this.discountRule = new DiscountRule();}
 
     @Override
     public int Get(HighwayDrive drive) {
-        int StartHour = 6;
-        int EndHour = 0;
         var discountRule = this.discountRule.build(drive)
                 .setVehicleFamilyRule(vehicleFamilies)
                 .setHolidayRule()

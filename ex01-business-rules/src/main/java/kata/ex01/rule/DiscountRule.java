@@ -4,7 +4,10 @@ import kata.ex01.model.HighwayDrive;
 import kata.ex01.model.Rule;
 import kata.ex01.model.VehicleFamily;
 
+import java.sql.Array;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -14,7 +17,8 @@ import java.util.List;
 public class DiscountRule {
     public List<Rule> rules;
 
-    public DiscountRule() { }
+    public DiscountRule() {
+    }
 
     public boolean isDiscount()
     {
@@ -24,6 +28,7 @@ public class DiscountRule {
 
     public DiscountRuleBuilder build (HighwayDrive drive)
     {
+        this.rules = new ArrayList<Rule>();
         return new DiscountRuleBuilder(this, drive);
     }
 

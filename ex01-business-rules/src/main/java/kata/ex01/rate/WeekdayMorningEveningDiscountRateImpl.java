@@ -15,29 +15,26 @@ public class WeekdayMorningEveningDiscountRateImpl implements DiscountRate {
     private final int DISCOUNT_RATE_50 = 50;
     /** 割引適用なし **/
     private final int NO_DISCOUNT_RATE = 0;
-    /** 割引対象の車種 **/
-    private VehicleFamily[] vehicleFamilies = {STANDARD, MINI, MOTORCYCLE};
 
-    public WeekdayMorningEveningDiscountRateImpl(DiscountRule discountRule)
+    public WeekdayMorningEveningDiscountRateImpl()
     {
-
-        this.discountRule = discountRule;
+        this.discountRule = new DiscountRule();
     }
 
     @Override
     public int Get(HighwayDrive drive) {
         /** 朝・夕割引で利用回数10回以上　**/
-        if(( isWeekdayMorning(drive) || isWeekdayEvening(drive) ) && drive.getDriver().getCountPerMonth() > 10) return DISCOUNT_RATE_50;
+        if(( isWeekdayMorning(drive) || isWeekdayEvening(drive) ) && drive.getDriver().getCountPerMonth() >= 10) return DISCOUNT_RATE_50;
         /** 朝・夕割引で利用回数5回以上　**/
-        if(( isWeekdayMorning(drive) || isWeekdayEvening(drive) ) && drive.getDriver().getCountPerMonth() > 5) return DISCOUNT_RATE_30;
+        if(( isWeekdayMorning(drive) || isWeekdayEvening(drive) ) && drive.getDriver().getCountPerMonth() >= 5) return DISCOUNT_RATE_30;
         return NO_DISCOUNT_RATE;
     }
 
     /** 平日・朝・地方ルール **/
     private boolean isWeekdayMorning(HighwayDrive drive)
     {
-        int StartHour = 8;
-        int EndHour = 10;
+        int StartHour = 6;
+        int EndHour = 9;
         var discountRule = this.discountRule.build(drive)
                 .setWeekdayDiscountTime(StartHour, EndHour)
                 .setRuralRule()

@@ -11,9 +11,9 @@ public class MidnightDiscountRateImpl implements DiscountRate {
     /** 割引適用なしの割引率 **/
     private final int NO_DISCOUNT_RATE = 0;
 
-    public MidnightDiscountRateImpl(DiscountRule discountRule)
+    public MidnightDiscountRateImpl()
     {
-        this.discountRule = discountRule;
+        this.discountRule = new DiscountRule();
     }
 
     @Override
