@@ -11,18 +11,15 @@ public class MidnightDiscountRateImpl implements DiscountRate {
     /** 割引適用なしの割引率 **/
     private final int NO_DISCOUNT_RATE = 0;
 
-    public MidnightDiscountRateImpl()
-    {
-        this.discountRule = new DiscountRule();
-    }
+    public MidnightDiscountRateImpl() { }
 
     @Override
     public int Get(HighwayDrive drive) {
         int StartHour = 0;
         int EndHour = 4;
-        var discountRule = this.discountRule.build(drive)
+        var discountRule = new DiscountRule.Builder(drive)
                 .setDiscountTime(StartHour, EndHour)
-                .getResult();
+                .build();
 
         if (discountRule.isDiscount()) return DISCOUNT_RATE;
         return NO_DISCOUNT_RATE;

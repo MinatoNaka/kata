@@ -16,10 +16,7 @@ public class WeekdayMorningEveningDiscountRateImpl implements DiscountRate {
     /** 割引適用なし **/
     private final int NO_DISCOUNT_RATE = 0;
 
-    public WeekdayMorningEveningDiscountRateImpl()
-    {
-        this.discountRule = new DiscountRule();
-    }
+    public WeekdayMorningEveningDiscountRateImpl() { }
 
     @Override
     public int Get(HighwayDrive drive) {
@@ -35,10 +32,10 @@ public class WeekdayMorningEveningDiscountRateImpl implements DiscountRate {
     {
         int StartHour = 6;
         int EndHour = 9;
-        var discountRule = this.discountRule.build(drive)
+        var discountRule = new DiscountRule.Builder(drive)
                 .setWeekdayDiscountTime(StartHour, EndHour)
                 .setRuralRule()
-                .getResult();
+                .build();
 
         return discountRule.isDiscount();
     }
@@ -48,10 +45,10 @@ public class WeekdayMorningEveningDiscountRateImpl implements DiscountRate {
     {
         int StartHour = 17;
         int EndHour = 20;
-        var discountRule = this.discountRule.build(drive)
+        var discountRule = new DiscountRule.Builder(drive)
                 .setWeekdayDiscountTime(StartHour, EndHour)
                 .setRuralRule()
-                .getResult();
+                .build();
 
         return discountRule.isDiscount();
     }

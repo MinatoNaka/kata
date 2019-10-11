@@ -18,15 +18,15 @@ public class HolidayDiscountRateImpl implements DiscountRate {
     /** 割引対象の車種 **/
     private EnumSet<VehicleFamily> vehicleFamilies = EnumSet.of(STANDARD, MINI, MOTORCYCLE);
 
-    public HolidayDiscountRateImpl() { this.discountRule = new DiscountRule();}
+    public HolidayDiscountRateImpl() { }
 
     @Override
     public int Get(HighwayDrive drive) {
-        var discountRule = this.discountRule.build(drive)
+        var discountRule = new DiscountRule.Builder(drive)
                 .setVehicleFamilyRule(vehicleFamilies)
                 .setHolidayRule()
                 .setRuralRule()
-                .getResult();
+                .build();
 
         if (discountRule.isDiscount()) return DISCOUNT_RATE;
         return NO_DISCOUNT_RATE;
