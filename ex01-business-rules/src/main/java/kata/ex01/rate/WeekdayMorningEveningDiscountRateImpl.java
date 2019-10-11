@@ -39,9 +39,8 @@ public class WeekdayMorningEveningDiscountRateImpl implements DiscountRate {
         int StartHour = 8;
         int EndHour = 10;
         var discountRule = this.discountRule.build(drive)
-                .setWeekdayRule()
+                .setWeekdayDiscountTime(StartHour, EndHour)
                 .setRuralRule()
-                .setDiscountTime(StartHour, EndHour)
                 .getResult();
 
         return discountRule.isDiscount();
@@ -53,9 +52,8 @@ public class WeekdayMorningEveningDiscountRateImpl implements DiscountRate {
         int StartHour = 17;
         int EndHour = 20;
         var discountRule = this.discountRule.build(drive)
-                .setWeekdayRule()
+                .setWeekdayDiscountTime(StartHour, EndHour)
                 .setRuralRule()
-                .setDiscountTime(StartHour, EndHour)
                 .getResult();
 
         return discountRule.isDiscount();

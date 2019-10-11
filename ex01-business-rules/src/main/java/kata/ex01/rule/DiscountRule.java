@@ -4,6 +4,8 @@ import kata.ex01.model.HighwayDrive;
 import kata.ex01.model.Rule;
 import kata.ex01.model.VehicleFamily;
 
+import java.time.LocalTime;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -35,33 +37,38 @@ public class DiscountRule {
             this.drive = drive;
             this.discountRule = discountRule;
         }
-        /** 平日判定ルール **/
-        public DiscountRuleBuilder setWeekdayRule() {
-            discountRule.rules.add(RuleBuilder.weekdayRule(drive.getEnteredAt(), drive.getExitedAt()));
-            return this;
-        }
         /** 休日判定ルール **/
         public DiscountRuleBuilder setHolidayRule()
         {
-            discountRule.rules.add(RuleBuilder.holidayRule(this.drive.getEnteredAt(),this.drive.getExitedAt()));
+            discountRule.rules.add(RuleBuilder.holidayRule(this.drive.getEnteredAt().toLocalDate(),this.drive.getExitedAt().toLocalDate()));
             return this;
         }
         /** 車種判定ルール **/
-        public DiscountRuleBuilder setVehicleFamilyRule(VehicleFamily[] vehicleFamilies)
+        public DiscountRuleBuilder setVehicleFamilyRule(EnumSet<VehicleFamily> vehicleFamilies)
         {
-            discountRule.rules.add(RuleBuilder.VehicleFamilyRule(this.drive.getEnteredAt(),this.drive.getExitedAt()));
+            discountRule.rules.add(RuleBuilder.vehicleFamilyRule(this.drive.getVehicleFamily(), vehicleFamilies));
             return this;
         }
         /** 地方部判定ルール **/
         public DiscountRuleBuilder setRuralRule()
         {
-            discountRule.rules.add(RuleBuilder.RuralRule(this.drive.getEnteredAt(),this.drive.getExitedAt()));
+            discountRule.rules.add(RuleBuilder.ruralRule(this.drive.getRouteType()));
             return this;
         }
         /** 割引時間判定ルール **/
         public DiscountRuleBuilder setDiscountTime(int startHour, int endHour)
         {
-            discountRule.rules.add(RuleBuilder.DiscountTimeRule(this.drive.getEnteredAt(),this.drive.getExitedAt()));
+            LocalTime startTime = LocalTime.of(startHour, 0);
+            LocalTime endTime = LocalTime.of(endHour, 0);
+            discountRule.rules.add(RuleBuilder.discountTimeRule(startTime, endTime, this.drive.getEnteredAt(),this.drive.getExitedAt()));
+            return this;
+        }
+        /** 平日割引時間判定ルール **/
+        public DiscountRuleBuilder setWeekdayDiscountTime(int startHour, int endHour)
+        {
+            LocalTime startTime = LocalTime.of(startHour, 0);
+            LocalTime endTime = LocalTime.of(endHour, 0);
+            discountRule.rules.add(RuleBuilder.weekDayDiscountTimeRule(startTime, endTime, this.drive.getEnteredAt(),this.drive.getExitedAt()));
             return this;
         }
         /** 割引ルールのインスタンスを返す **/

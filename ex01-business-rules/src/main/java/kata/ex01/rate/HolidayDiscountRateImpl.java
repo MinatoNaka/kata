@@ -4,6 +4,8 @@ import kata.ex01.model.HighwayDrive;
 import kata.ex01.model.VehicleFamily;
 import kata.ex01.rule.DiscountRule;
 
+import java.util.EnumSet;
+
 import static kata.ex01.model.VehicleFamily.*;
 
 public class HolidayDiscountRateImpl implements DiscountRate {
@@ -14,7 +16,7 @@ public class HolidayDiscountRateImpl implements DiscountRate {
     /** 割引適用なし **/
     private final int NO_DISCOUNT_RATE = 0;
     /** 割引対象の車種 **/
-    private VehicleFamily[] vehicleFamilies = {STANDARD, MINI, MOTORCYCLE};
+    private EnumSet<VehicleFamily> vehicleFamilies = EnumSet.of(STANDARD, MINI, MOTORCYCLE);
 
     public HolidayDiscountRateImpl(DiscountRule discountRule)
     {
