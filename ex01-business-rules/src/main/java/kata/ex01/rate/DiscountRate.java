@@ -1,4 +1,4 @@
-package kata.ex01.domain.rate;
+package kata.ex01.rate;
 
 import kata.ex01.model.HighwayDrive;
 
