@@ -1,5 +1,9 @@
 package kata.ex01.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 /**
  * 車種.
  *

@@ -2,10 +2,11 @@ package kata.ex01;
 
 import kata.ex01.model.Driver;
 import kata.ex01.model.HighwayDrive;
+import kata.ex01.rate.DiscountRate;
+import kata.ex01.rate.HolidayDiscountRateImpl;
+import kata.ex01.rate.MidnightDiscountRateImpl;
+import kata.ex01.rate.WeekdayMorningEveningDiscountRateImpl;
 import kata.ex01.rule.DiscountRule;
-import kata.ex01.rule.HolidayDiscountImpl;
-import kata.ex01.rule.MidnightDiscountImpl;
-import kata.ex01.rule.WeekdayMorningEveningDiscountImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,10 +32,10 @@ public class DiscountServiceTest {
 
     @BeforeEach
     void setUp() {
-        List<DiscountRule> discountRules = new ArrayList<DiscountRule>();
-        discountRules.add(new WeekdayMorningEveningDiscountImpl());
-        discountRules.add(new HolidayDiscountImpl());
-        discountRules.add(new MidnightDiscountImpl());
+        List<DiscountRate> discountRules = new ArrayList<DiscountRate>();
+        discountRules.add(new WeekdayMorningEveningDiscountRateImpl());
+        discountRules.add(new HolidayDiscountRateImpl());
+        discountRules.add(new MidnightDiscountRateImpl());
         discountService = new DiscountServiceImpl(discountRules);
     }
 
