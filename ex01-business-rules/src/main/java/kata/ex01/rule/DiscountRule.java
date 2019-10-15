@@ -26,6 +26,7 @@ public class DiscountRule {
             this.drive = drive;
             this.rules = new ArrayList<>();
         }
+
         /** 休日判定ルール **/
         public Builder setHolidayRule()
         {
@@ -73,7 +74,7 @@ public class DiscountRule {
 
     public boolean isDiscount()
     {
-        for (Rule rule : rules) { if(rule.getIsRule() == false) return false; }
+        for (Rule rule : rules) { if(rule.getChecked() == false) return false; }
         return true;
     }
 }

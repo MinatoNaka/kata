@@ -17,8 +17,7 @@ import java.util.Set;
  */
 public class RuleHelper {
     private static Rule build(boolean value) {
-        var rule = new Rule();
-        rule.setIsRule(value);
+        var rule = new Rule(value);
         return rule;
     }
 

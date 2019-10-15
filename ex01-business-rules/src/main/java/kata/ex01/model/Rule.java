@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
  * @author kawasima
  */
 public class Rule implements Serializable {
-    private boolean isRule;
-    public boolean getIsRule() { return this.isRule; }
-    public void setIsRule(boolean value){ this.isRule = value;}
+    private boolean checked;
+    public boolean getChecked() { return this.checked; }
+    public Rule(boolean value) {
+        this.checked = value;
+    }
 }
